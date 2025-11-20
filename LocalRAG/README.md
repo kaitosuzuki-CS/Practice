@@ -86,4 +86,3 @@ Based on the reviews, the pepperoni pizza is highly regarded. One review mention
 - `vector.py`: Manages the creation of the ChromaDB vector store, generates embeddings from the data, and sets up the retriever.
 - `data.csv`: The dataset containing pizza restaurant reviews with columns for `Title`, `Review`, `Rating`, and `Date`.
 - `requirements.txt`: A list of the Python packages required for the project.
-- `.gitignore`: Specifies files and directories to be ignored by Git, such as the virtual environment and the ChromaDB database.
