@@ -35,8 +35,8 @@ The project is organized into two main directories:
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/python-agent.git
-    cd python-agent
+    git clone https://github.com/Hachiman-potassiumdesu/Practice.git
+    cd Practice/AgentBasics
     ```
 
 2.  **Create a virtual environment:**
