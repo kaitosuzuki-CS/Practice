@@ -54,7 +54,6 @@ This project is an implementation of a Denoising Diffusion Probabilistic Model (
 - Python 3
 - PyTorch
 - Transformers (for learning rate scheduler)
-- tqdm (for progress bars)
 
 ## Application
 
@@ -77,6 +76,7 @@ You can set up the project using either Conda (recommended for CUDA) or pip.
 #### Using Conda (with CUDA support)
 
 1.  **Clone the repository:**
+
     ```bash
     git clone https://github.com/your-username/DDPM.git
     cd DDPM
@@ -91,12 +91,14 @@ You can set up the project using either Conda (recommended for CUDA) or pip.
 #### Using pip
 
 1.  **Clone the repository:**
+
     ```bash
-    git clone https://github.com/your-username/DDPM.git
-    cd DDPM
+    git clone https://github.com/Hachiman-potassiumdesu/Practice.git
+    cd Practice/DDPM
     ```
 
 2.  **Create and activate a virtual environment:**
+
     ```bash
     python -m venv venv
     source venv/bin/activate
@@ -112,43 +114,53 @@ You can set up the project using either Conda (recommended for CUDA) or pip.
 After installation, you can train the model and run inference as follows:
 
 #### Train the model:
+
 To train the model on the MNIST dataset:
+
 ```bash
 python train.py --data mnist
 ```
+
 To train the model on the CIFAR-100 dataset:
+
 ```bash
 python train.py --data cifar100
 ```
+
 Checkpoints will be saved in the `checkpoints` directory.
 
 #### Run inference:
+
 Before running inference, make sure you have a trained model checkpoint. Update the `ckpt_path` in the corresponding config file (`config/mnist_config.json` or `config/cifar100_config.json`) to point to your trained model.
 
 To generate images using the MNIST model:
+
 ```bash
 python infer.py --data mnist
 ```
+
 To generate images using the CIFAR-100 model:
+
 ```bash
 python infer.py --data cifar100
 ```
+
 Generated images will be saved in the `samples` directory.
 
 ## Project Files
 
--   **`train.py`**: The main script for training the DDPM model.
--   **`infer.py`**: The main script for generating images using a trained model.
--   **`test.py`**: Script for testing the model (if applicable).
--   **`config/*.json`**: Configuration files for different datasets, containing hyperparameters for the model, training, and inference.
--   **`model/`**: This directory contains the source code for the DDPM model architecture.
-    -   **`main.py`**: The main model file that defines the DDPM.
-    -   **`blocks/`**, **`components/`**, **`layers/`**, **`models/`**: These subdirectories contain different modules of the model, such as encoder/decoder blocks, attention mechanisms, and positional embeddings.
--   **`utils/`**: This directory contains utility scripts for various tasks.
-    -   **`dataset.py`**: Script for creating and loading datasets.
-    -   **`hps.py`**: Script for loading hyperparameters from config files.
-    -   **`loss.py`**: Defines the loss function used for training.
-    -   **`misc.py`**: Contains miscellaneous utility functions like early stopping and setting random seeds.
--   **`checkpoints/`**: Directory where model checkpoints are saved during training.
--   **`samples/`**: Directory where generated images are saved during inference.
--   **`.gitignore`**: Specifies which files and directories to ignore in Git version control.
+- **`train.py`**: The main script for training the DDPM model.
+- **`infer.py`**: The main script for generating images using a trained model.
+- **`test.py`**: Script for testing the model (if applicable).
+- **`config/*.json`**: Configuration files for different datasets, containing hyperparameters for the model, training, and inference.
+- **`model/`**: This directory contains the source code for the DDPM model architecture.
+  - **`main.py`**: The main model file that defines the DDPM.
+  - **`blocks/`**, **`components/`**, **`layers/`**, **`models/`**: These subdirectories contain different modules of the model, such as encoder/decoder blocks, attention mechanisms, and positional embeddings.
+- **`utils/`**: This directory contains utility scripts for various tasks.
+  - **`dataset.py`**: Script for creating and loading datasets.
+  - **`hps.py`**: Script for loading hyperparameters from config files.
+  - **`loss.py`**: Defines the loss function used for training.
+  - **`misc.py`**: Contains miscellaneous utility functions like early stopping and setting random seeds.
+- **`checkpoints/`**: Directory where model checkpoints are saved during training.
+- **`samples/`**: Directory where generated images are saved during inference.
+- **`.gitignore`**: Specifies which files and directories to ignore in Git version control.
