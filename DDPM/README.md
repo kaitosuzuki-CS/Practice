@@ -147,6 +147,99 @@ python infer.py --data cifar100
 
 Generated images will be saved in the `samples` directory.
 
+### Using Custom Datasets
+
+To train and infer with your own dataset, follow these steps:
+
+#### 1. Prepare Your Data
+
+Organize your custom dataset in a directory structure that is easy to access. For image datasets, a common approach is to have all images in a single folder, or organized into subfolders if you need class labels (though for unconditional DDPMs, class labels might not be strictly necessary during training).
+
+#### 2. Create a Custom Configuration File
+
+1.  **Duplicate an existing config file:** Start by copying either `config/mnist_config.json` or `config/cifar100_config.json` as a template. Name it appropriately, e.g., `config/my_dataset_config.json`.
+
+    ```bash
+    cp config/mnist_config.json config/my_dataset_config.json
+    ```
+
+2.  **Edit the new config file (`config/my_dataset_config.json`):**
+    Open `config/my_dataset_config.json` and modify the following parameters to match your dataset:
+
+    *   `data_path`: Specify the path to your custom dataset directory.
+    *   `image_size`: Set the desired image dimensions (e.g., `64` for 64x64 pixels). All images will be resized to this.
+    *   `in_channels`: Number of color channels in your images (e.g., `1` for grayscale, `3` for RGB).
+    *   `num_classes`: If your dataset has classes and you plan to use a conditional DDPM, set this. For unconditional generation, you might keep it at `0` or adjust as needed.
+    *   Review other hyperparameters like `batch_size`, `learning_rate`, `epochs`, `noise_steps`, `beta_start`, `beta_end`, etc., and adjust them for your specific dataset and training requirements.
+    *   `name`: Change the name to reflect your custom dataset, e.g., `"my_dataset"`.
+
+#### 3. Update `utils/dataset.py` for Custom Data Loading
+
+The `utils/dataset.py` file contains the logic for loading datasets. You will need to modify this file to correctly load your custom dataset.
+
+1.  **Open `utils/dataset.py`**.
+2.  **Add a new `Dataset` class or modify an existing function**:
+    *   **Option A (Recommended): Create a new `CustomDataset` class.** This is generally cleaner. You'll inherit from `torch.utils.data.Dataset` and implement `__init__`, `__len__`, and `__getitem__`.
+        *   In `__init__`, load your images (e.g., using `torchvision.datasets.ImageFolder` if your data is organized by classes, or `glob` to find all image files in a directory).
+        *   In `__getitem__`, load an image, apply transformations (resizing, normalization, tensor conversion), and return it.
+        *   Example structure (conceptual):
+
+        ```python
+        import os
+        from PIL import Image
+        from torch.utils.data import Dataset
+        from torchvision import transforms
+
+        class MyCustomDataset(Dataset):
+            def __init__(self, root_dir, image_size):
+                self.root_dir = root_dir
+                self.image_size = image_size
+                self.image_paths = [os.path.join(root_dir, f) for f in os.listdir(root_dir) if f.endswith(('.png', '.jpg', '.jpeg'))] # Adjust extensions as needed
+                self.transform = transforms.Compose([
+                    transforms.Resize(image_size),
+                    transforms.ToTensor(),
+                    transforms.Normalize((0.5,), (0.5,)) # Normalize to [-1, 1]
+                ])
+
+            def __len__(self):
+                return len(self.image_paths)
+
+            def __getitem__(self, idx):
+                img_path = self.image_paths[idx]
+                image = Image.open(img_path).convert("L" if self.transform.transforms[2].mean[0] == 0.5 and len(self.transform.transforms[2].mean) == 1 else "RGB") # Convert to grayscale if 1 channel, else RGB
+                return self.transform(image)
+
+        ```
+    *   **Option B: Integrate into `load_dataset` function.** If `dataset.py` already has a function like `load_dataset`, you can add a new `if/elif` condition to handle your custom dataset name (as specified in your config file's `name` field).
+
+3.  **Ensure `load_dataset` or equivalent function correctly calls your new class**: Make sure that the main dataset loading function in `utils/dataset.py` can identify and instantiate your `MyCustomDataset` based on the `name` provided in your custom config file. For instance, you might need to add an `elif` condition to `load_dataset` if it uses a string identifier to select the dataset.
+
+#### 4. Train the Model with Your Custom Dataset
+
+Once your config file and `utils/dataset.py` are set up, you can train your model:
+
+```bash
+python train.py --config_path config/my_dataset_config.json
+```
+
+Replace `config/my_dataset_config.json` with the path to your custom configuration file. The training script will automatically load the hyperparameters and dataset settings from this file.
+
+#### 5. Run Inference with Your Custom Dataset
+
+After training, you can use your trained model to generate images.
+
+1.  **Update `ckpt_path` in your custom config file:**
+    Open `config/my_dataset_config.json` and ensure that the `ckpt_path` parameter points to the `.pth` file of your trained model checkpoint (e.g., `checkpoints/my_dataset/best_model.pth`).
+
+2.  **Run the inference script:**
+
+    ```bash
+    python infer.py --config_path config/my_dataset_config.json
+    ```
+
+    Replace `config/my_dataset_config.json` with the path to your custom configuration file. Generated images will be saved in the `samples/my_dataset/imgs` directory (or similar, based on your config's `name`).
+
+
 ## Project Files
 
 - **`train.py`**: The main script for training the DDPM model.
