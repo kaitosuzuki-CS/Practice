@@ -1,9 +1,11 @@
 import os
 from collections import deque
 
-os.environ["MUJOCO_GL"] = "egl"
-
 import numpy as np
+import torch
+
+os.environ["MUJOCO_GL"] = "egl" if torch.cuda.is_available() else "osmesa"
+
 from dm_control import suite
 from dm_control.suite.wrappers import pixels
 

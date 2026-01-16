@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+.venv/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Project-specific output directories and files
+checkpoints/
+*.mp4
+
+# OS-specific
+.DS_Store
+
+# Editor-specific
+*~
+.#*
+*.swp
+*.swo
