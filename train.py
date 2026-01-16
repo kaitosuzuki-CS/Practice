@@ -134,7 +134,6 @@ if __name__ == "__main__":
         train_hps.buffer_capacity,  # type: ignore
         model_hps.observation_shape,  # type: ignore
         action_spec.shape,  # type: ignore
-        train_hps.save_dir,  # type: ignore
         device,
     )
     crop = Crop(train_hps)

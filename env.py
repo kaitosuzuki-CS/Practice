@@ -1,9 +1,7 @@
 import os
+from collections import deque
 
 os.environ["MUJOCO_GL"] = "egl"
-
-
-from collections import deque
 
 import numpy as np
 from dm_control import suite

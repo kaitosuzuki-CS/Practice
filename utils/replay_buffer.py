@@ -5,7 +5,7 @@ import torch
 
 
 class ReplayBuffer:
-    def __init__(self, capacity, observation_shape, action_shape, save_dir, device):
+    def __init__(self, capacity, observation_shape, action_shape, device):
         self._capacity = capacity
         self._observation_shape = observation_shape
         self._action_shape = action_shape
