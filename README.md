@@ -115,3 +115,4 @@ python infer.py --task cheetah --ckpt checkpoints/Cheetah/final.pt
 - **`utils/crop.py`**: Implements the random cropping logic essential for CURL's data augmentation.
 - **`utils/replay_buffer.py`**: Efficient storage and sampling of experience tuples `(state, action, reward, next_state, done)`.
 - **`configs/*.json`**: Configuration files defining model architecture (hidden dims, layers) and training hyperparameters (learning rate, batch size, etc.).
+- **`SAC_CURL_Notebook.ipynb`**: A Jupyter Notebook providing an interactive environment for training and evaluating the SAC+CURL agent, optimized for Google Colab usage.
