@@ -47,30 +47,31 @@ This implementation specifically targets continuous control tasks from the **Dee
 
 ## Tech Stack
 
-*   **Python**: Core programming language.
-*   **PyTorch**: Deep learning framework for building Actor, Critic, and Encoder networks.
-*   **MuJoCo**: Physics engine for the simulation environments.
-*   **DeepMind Control Suite (`dm_control`)**: Reinforcement learning environments.
-*   **NumPy**: Numerical operations.
+- **Python**: Core programming language.
+- **PyTorch**: Deep learning framework for building Actor, Critic, and Encoder networks.
+- **MuJoCo**: Physics engine for the simulation environments.
+- **DeepMind Control Suite (`dm_control`)**: Reinforcement learning environments.
+- **NumPy**: Numerical operations.
 
 ## Application Info
 
 The core algorithm combines:
+
 1.  **Soft Actor-Critic (SAC)**: An off-policy actor-critic deep RL algorithm based on the maximum entropy reinforcement learning framework.
 2.  **CURL**: Uses contrastive learning to enforce consistency between augmented views (random crops) of the same observation.
 
 **Key Components:**
-*   **Encoder**: A Convolutional Neural Network (CNN) that processes pixel inputs.
-*   **Data Augmentation**: Random cropping of input images (`100x100` -> `84x84`) is used to generate positive pairs for the contrastive loss.
-*   **Dual Objectives**: The encoder is updated by both the Critic's Q-learning loss and the CURL contrastive loss.
+
+- **Encoder**: A Convolutional Neural Network (CNN) that processes pixel inputs.
+- **Data Augmentation**: Random cropping of input images (`100x100` -> `84x84`) is used to generate positive pairs for the contrastive loss.
+- **Dual Objectives**: The encoder is updated by both the Critic's Q-learning loss and the CURL contrastive loss.
 
 ## Getting Started
 
 ### Prerequisites
 
-*   Python 3.8+
-*   **MuJoCo**: You must have MuJoCo installed and configured.
-    *   Set `MUJOCO_GL=egl` for headless rendering (included in `.env`).
+- Python 3.8+
+- **MuJoCo**: You must have MuJoCo installed and configured.
 
 ### Installation
 
@@ -89,9 +90,9 @@ To train the agent on a specific task (e.g., `cheetah` or `walker`):
 python train.py --task cheetah
 ```
 
-*   **Arguments**:
-    *   `--task`: The name of the task (default: `cheetah`). Must have a corresponding `configs/<task>_config.json` file.
-*   **Output**: Checkpoints are saved to `checkpoints/<TaskName>/`.
+- **Arguments**:
+  - `--task`: The name of the task (default: `cheetah`). Must have a corresponding `configs/<task>_config.json` file.
+- **Output**: Checkpoints are saved to `checkpoints/<TaskName>/`.
 
 ### Running Inference
 
@@ -101,16 +102,16 @@ To evaluate a trained agent and generate a video of the performance:
 python infer.py --task cheetah --ckpt checkpoints/Cheetah/final.pt
 ```
 
-*   **Arguments**:
-    *   `--task`: The name of the task (default: `cheetah`).
-    *   `--ckpt`: Path to the model checkpoint file (default: `final.pt`).
-*   **Output**: A video file `inference.mp4` will be saved in the `<task>` directory.
+- **Arguments**:
+  - `--task`: The name of the task (default: `cheetah`).
+  - `--ckpt`: Path to the model checkpoint file (default: `final.pt`).
+- **Output**: A video file `inference.mp4` will be saved in the `<task>` directory.
 
 ## Project Files
 
-*   **`train.py`**: The entry point for training. It initializes the environment, agent, and replay buffer, and runs the training loop.
-*   **`infer.py`**: Loads a pre-trained agent and runs it in the environment to record a video.
-*   **`model/sac.py`**: Contains the `SAC_CURL` class, which implements the core logic for the agent, including the actor, critic, and contrastive updates.
-*   **`utils/crop.py`**: Implements the random cropping logic essential for CURL's data augmentation.
-*   **`utils/replay_buffer.py`**: Efficient storage and sampling of experience tuples `(state, action, reward, next_state, done)`.
-*   **`configs/*.json`**: Configuration files defining model architecture (hidden dims, layers) and training hyperparameters (learning rate, batch size, etc.).
+- **`train.py`**: The entry point for training. It initializes the environment, agent, and replay buffer, and runs the training loop.
+- **`infer.py`**: Loads a pre-trained agent and runs it in the environment to record a video.
+- **`model/sac.py`**: Contains the `SAC_CURL` class, which implements the core logic for the agent, including the actor, critic, and contrastive updates.
+- **`utils/crop.py`**: Implements the random cropping logic essential for CURL's data augmentation.
+- **`utils/replay_buffer.py`**: Efficient storage and sampling of experience tuples `(state, action, reward, next_state, done)`.
+- **`configs/*.json`**: Configuration files defining model architecture (hidden dims, layers) and training hyperparameters (learning rate, batch size, etc.).
