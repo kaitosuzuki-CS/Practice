@@ -80,8 +80,8 @@ You can set up the project using pip.
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/Hachiman-potassiumdesu/checkpoint-ai.git
-    cd checkpoint-ai
+    git clone https://github.com/Hachiman-potassiumdesu/Practice.git
+    cd Practice/CURL-Custom-Implementation
     ```
 
 2.  **Create and activate a virtual environment:**
