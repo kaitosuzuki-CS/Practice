@@ -91,7 +91,7 @@ You can set up the project using pip.
     source venv/bin/activate
     ```
 
-3.  **Install dependencies from `requirements_pip.txt`:**
+3.  **Install dependencies from `requirements.txt`:**
     ```bash
     pip install -r requirements.txt
 
