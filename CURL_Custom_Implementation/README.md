@@ -81,7 +81,7 @@ You can set up the project using pip.
 
     ```bash
     git clone https://github.com/kaitosuzuki-CS/Practice.git
-    cd Practice/CURL-Custom-Implementation
+    cd Practice/CURL_Custom_Implementation
     ```
 
 2.  **Create and activate a virtual environment:**

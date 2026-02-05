@@ -69,8 +69,8 @@ betavae/
 1.  Clone the repository:
 
     ```bash
-    git clone <repository_url>
-    cd betavae
+    git clone https://github.com/kaitosuzuki-CS/Practice.git
+    cd Practice/betaVAE_CompLoss
     ```
 
 2.  Install dependencies (ensure you have PyTorch installed suitable for your hardware):
