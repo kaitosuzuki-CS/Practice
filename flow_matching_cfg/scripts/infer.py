@@ -8,7 +8,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Train Classifier-Free Guidance FLow Matching on MNIST"
+        description="Generate MNIST samples with Classifier-Free Guidance Flow Matching"
     )
     parser.add_argument(
         "--model-config-path",
