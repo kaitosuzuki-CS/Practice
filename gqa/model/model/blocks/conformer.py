@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from model.components import FFN, ConvBlock, GroupQueryAttention
+from model.model.components import FFN, ConvBlock, GroupQueryAttention
 
 
 class ConformerLayer(nn.Module):

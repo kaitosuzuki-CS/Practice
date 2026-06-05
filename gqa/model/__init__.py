@@ -1,2 +1,2 @@
-from .conformer import ConformerClassifier
-from .simple_vit import ViTClassifier
+from .model import ConformerClassifier, ViTClassifier
+from .wrappers import create_model_wrapper

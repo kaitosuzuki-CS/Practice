@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from model.blocks import Conformer
+from model.model.blocks import Conformer
 
 
 class ConformerClassifier(nn.Module):

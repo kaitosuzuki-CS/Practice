@@ -10,15 +10,48 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 from transformers.optimization import get_cosine_schedule_with_warmup
 
-from model import ConformerClassifier, ViTClassifier
-from utils import HPS, EarlyStopping, set_seeds
+from model.model import ConformerClassifier, ViTClassifier
+from utils import *
 
 parent_dir = Path(__file__).resolve().parent.parent
+
+
+def create_model_wrapper(
+    model_config_path: str,
+    train_config_path: str,
+    device: str,
+) -> ModelWrapper:
+    hps = load_config(model_config_path)
+    train_hps = load_config(train_config_path)
+
+    mode = str(getattr(hps, "mode", "conformer")).lower()
+
+    model = None
+    if mode == "conformer":
+        model = ConformerClassifier(hps)
+    elif mode == "vit":
+        model = ViTClassifier(hps)
+    else:
+        raise ValueError(f"Unsupported mode: {mode}")
+
+    train_loader, val_loader = create_dataset(train_hps)
+
+    wrapper = ModelWrapper(
+        model=model,
+        hps=hps,
+        train_hps=train_hps,
+        train_loader=train_loader,
+        val_loader=val_loader,
+        device=device,
+    )
+
+    return wrapper
 
 
 class ModelWrapper:
     def __init__(
         self,
+        model,
         hps,
         train_hps,
         train_loader: DataLoader,
@@ -33,13 +66,7 @@ class ModelWrapper:
 
         self._init_hyperparameters()
 
-        mode = self._hps.mode
-        if mode == "conformer":
-            self.model = ConformerClassifier(self._hps)
-        elif mode == "vit":
-            self.model = ViTClassifier(self._hps)
-        else:
-            raise ValueError(f"Unsupported mode: {mode}")
+        self.model = model
 
     def _init_hyperparameters(self):
         self.optimizer_hps = self._train_hps.optimizer
