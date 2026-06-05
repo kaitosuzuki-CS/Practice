@@ -7,7 +7,7 @@ class FFN(nn.Module):
         self,
         embed_dim: int,
         hidden_dim: int,
-        act: torch.nn.Module,
+        act: type[nn.Module],
         dropout: float = 0.0,
     ):
         super().__init__()

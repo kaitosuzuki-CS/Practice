@@ -39,6 +39,14 @@ class GroupQueryAttention(nn.Module):
             torch.empty(self._embed_dim, self._embed_dim)
         )  # (embed_dim, embed_dim)
 
+        self._init_weights()
+
+    def _init_weights(self):
+        nn.init.xavier_uniform_(self.q)
+        nn.init.xavier_uniform_(self.k)
+        nn.init.xavier_uniform_(self.v)
+        nn.init.xavier_uniform_(self.o)
+
     def _check_input(
         self,
         q: torch.Tensor,
