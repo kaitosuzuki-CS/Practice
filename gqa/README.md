@@ -103,9 +103,8 @@ The workspace relies on a modern, robust, and highly-performant Python and deep 
 - **Deep Learning Framework**: PyTorch 2.12.0+ (utilizes custom written layers and tensor operations)
 - **Computer Vision**: Torchvision 0.27.0+ (CIFAR-10 loaders and transforms)
 - **Learning Rate Scheduler**: Transformers 5.10.2+ (Cosine Annealing with Warmup scheduler)
-- **Mathematical Processing**: NumPy 2.4.6+, SymPy 1.14.0+
-- **Visualizations & Plotting**: Matplotlib 3.10.9+, Pillow 12.2.0+, pikepdf 10.9.1+
-- **Configuration & CLI Utilities**: PyYAML 6.0.3+, argparse, tqdm, Rich 15.0.0+
+- **Visualizations & Plotting**: Matplotlib 3.10.9+
+- **Configuration & CLI Utilities**: PyYAML 6.0.3+, argparse, tqdm
 
 ---
 
@@ -246,12 +245,34 @@ _Base Hyperparameters: 12 Attention Heads, Embedding Dim: 192, 4 Layers, Hidden 
 
 ### Visualization Plots
 
-Pre-generated evaluation curves are organized inside the `results/samples/` directory:
+Pre-generated evaluation curves are organized inside the `results/samples/` directory.
 
-- **`vit_loss_curve.png` / `conformer_loss_curve.png`**: Multi-line plots detailing training loss convergence over 40 epochs.
-- **`vit_accuracy.png` / `conformer_accuracy.png`**: Evaluation accuracies contrasted across MHA, MQA, and GQA settings.
-- **`vit_parameter_count.png` / `conformer_parameter_count.png`**: Bar chart layouts illustrating parameter savings when sharing attention keys and values.
-- **`*_parameter_count_vs_accuracy.png` / `*_parameter_count_vs_time.png`**: Compares the Pareto trade-offs of efficiency versus computational throughput.
+#### 1. Training Convergence & Accuracy
+
+|                 Vision Transformer (ViT)                  |                         Conformer Classifier                          |
+| :-------------------------------------------------------: | :-------------------------------------------------------------------: |
+|                      **Loss Curve**                       |                            **Loss Curve**                             |
+| ![ViT Loss Curve](results/samples/png/vit_loss_curve.png) | ![Conformer Loss Curve](results/samples/png/conformer_loss_curve.png) |
+|                  **Validation Accuracy**                  |                        **Validation Accuracy**                        |
+|   ![ViT Accuracy](results/samples/png/vit_accuracy.png)   |   ![Conformer Accuracy](results/samples/png/conformer_accuracy.png)   |
+
+#### 2. Model Parameters & Processing Times
+
+|                      Vision Transformer (ViT)                       |                              Conformer Classifier                               |
+| :-----------------------------------------------------------------: | :-----------------------------------------------------------------------------: |
+|                         **Parameter Count**                         |                               **Parameter Count**                               |
+| ![ViT Parameter Count](results/samples/png/vit_parameter_count.png) | ![Conformer Parameter Count](results/samples/png/conformer_parameter_count.png) |
+|                     **Inference/Training Time**                     |                           **Inference/Training Time**                           |
+|            ![ViT Time](results/samples/png/vit_time.png)            |            ![Conformer Time](results/samples/png/conformer_time.png)            |
+
+#### 3. Pareto Frontier Trade-offs
+
+|                                Vision Transformer (ViT)                                 |                                        Conformer Classifier                                         |
+| :-------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: |
+|                            **Parameter Count vs. Accuracy**                             |                                  **Parameter Count vs. Accuracy**                                   |
+| ![ViT Param Count vs Accuracy](results/samples/png/vit_parameter_count_vs_accuracy.png) | ![Conformer Param Count vs Accuracy](results/samples/png/conformer_parameter_count_vs_accuracy.png) |
+|                             **Parameter Count vs. Latency**                             |                                   **Parameter Count vs. Latency**                                   |
+|     ![ViT Param Count vs Time](results/samples/png/vit_parameter_count_vs_time.png)     |     ![Conformer Param Count vs Time](results/samples/png/conformer_parameter_count_vs_time.png)     |
 
 ---
 
