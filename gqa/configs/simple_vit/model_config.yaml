@@ -1,0 +1,9 @@
+mode: "vit"
+num_classes: 10
+im_channels: 3
+embed_dim: 128
+hidden_dim: 512
+num_heads: 16
+num_head_groups: 16
+num_layers: 6
+dropout: 0

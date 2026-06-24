@@ -1,0 +1,9 @@
+mode: "conformer"
+im_channels: 3
+embed_dim: 128
+hidden_dim: 512
+num_heads: 16
+num_head_groups: 16
+num_conv_groups: 32
+num_layers: 8
+dropout: 0
