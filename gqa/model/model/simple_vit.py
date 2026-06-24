@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from model.blocks import ViT
+from model.model.blocks import ViT
 
 
 class ViTClassifier(nn.Module):

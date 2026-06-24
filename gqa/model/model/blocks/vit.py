@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from model.components import FFN, GroupQueryAttention
+from model.model.components import FFN, GroupQueryAttention
 
 
 class ViTLayer(nn.Module):

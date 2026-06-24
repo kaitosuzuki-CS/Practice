@@ -1,4 +1,5 @@
 import os
+import time
 from pathlib import Path
 
 import numpy as np
@@ -240,6 +241,7 @@ class ModelWrapper:
         with torch.no_grad():
             for i, loader in enumerate((self._train_loader, self._val_loader)):
                 num_correct, num_samples = 0, 0
+                start_time = time.time()
 
                 for x, label in tqdm(loader, leave=False):
                     x = x.to(self._device)
@@ -252,5 +254,6 @@ class ModelWrapper:
                 print(f"----Results ({'Train' if i == 0 else 'Val'})----")
                 print(f"Result: {num_correct}/{num_samples}")
                 print(f"Accuracy: {(num_correct / num_samples):6f}")
+                print(f"Runtime: {time.time() - start_time:6f} seconds")
 
         print("Evaluation Complete")
