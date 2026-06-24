@@ -17,38 +17,6 @@ from utils import *
 parent_dir = Path(__file__).resolve().parent.parent
 
 
-def create_model_wrapper(
-    model_config_path: str,
-    train_config_path: str,
-    device: str,
-) -> ModelWrapper:
-    hps = load_config(model_config_path)
-    train_hps = load_config(train_config_path)
-
-    mode = str(getattr(hps, "mode", "conformer")).lower()
-
-    model = None
-    if mode == "conformer":
-        model = ConformerClassifier(hps)
-    elif mode == "vit":
-        model = ViTClassifier(hps)
-    else:
-        raise ValueError(f"Unsupported mode: {mode}")
-
-    train_loader, val_loader = create_dataset(train_hps)
-
-    wrapper = ModelWrapper(
-        model=model,
-        hps=hps,
-        train_hps=train_hps,
-        train_loader=train_loader,
-        val_loader=val_loader,
-        device=device,
-    )
-
-    return wrapper
-
-
 class ModelWrapper:
     def __init__(
         self,
@@ -257,3 +225,35 @@ class ModelWrapper:
                 print(f"Runtime: {time.time() - start_time:6f} seconds")
 
         print("Evaluation Complete")
+
+
+def create_model_wrapper(
+    model_config_path: str,
+    train_config_path: str,
+    device: str,
+) -> ModelWrapper:
+    hps = load_config(model_config_path)
+    train_hps = load_config(train_config_path)
+
+    mode = str(getattr(hps, "mode", "conformer")).lower()
+
+    model = None
+    if mode == "conformer":
+        model = ConformerClassifier(hps)
+    elif mode == "vit":
+        model = ViTClassifier(hps)
+    else:
+        raise ValueError(f"Unsupported mode: {mode}")
+
+    train_loader, val_loader = create_dataset(train_hps)
+
+    wrapper = ModelWrapper(
+        model=model,
+        hps=hps,
+        train_hps=train_hps,
+        train_loader=train_loader,
+        val_loader=val_loader,
+        device=device,
+    )
+
+    return wrapper

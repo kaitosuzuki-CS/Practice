@@ -1,4 +1,5 @@
 mode: "conformer"
+num_classes: 10
 im_channels: 3
 embed_dim: 128
 hidden_dim: 512

@@ -20,7 +20,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--train-config-path",
         type=str,
-        default="configs/train_config/yaml",
+        default="configs/train_config.yaml",
         help="Path to the training config file.",
     )
     parser.add_argument(
